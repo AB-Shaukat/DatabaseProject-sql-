@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Give Feedback</h2>
+    {% if 'username' in session %}
+        <form action="{{ url_for('give_feedback') }}" method="post">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.class_id.label(class='form-label') }}
+                {{ form.class_id(class='form-control') }}
+                {% if form.class_id.errors %}
+                    {% for error in form.class_id.errors %}
+                        <div class="invalid-feedback d-block">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.feedback.label(class='form-label') }}
+                {{ form.feedback(class='form-control') }}
+                {% if form.feedback.errors %}
+                    {% for error in form.feedback.errors %}
+                        <div class="invalid-feedback d-block">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.submit(class='btn btn-primary') }}
+            </div>
+        </form>
+    {% else %}
+        <p>You must be logged in to give feedback. Please <a href="{{ url_for('login') }}">login</a> to continue.</p>
+    {% endif %}
+</div>
+{% endblock %}

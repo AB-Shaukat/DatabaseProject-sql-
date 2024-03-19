@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Gym</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fancy-nav"> <!-- Changed the classes for styling -->
+        <a class="navbar-brand" href="/">
+            <img src="{{ url_for('static', filename='logo5.png') }}" alt="Fitness Pro" height="30"> 
+            Fitness Pro <!-- Added "Fitness Pro" text alongside the logo -->
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ 'active' if request.endpoint == 'classes' else '' }}">
+                    <a class="nav-link" href="{{ url_for('classes') }}">Classes</a>
+                </li>
+                <li class="nav-item {{ 'active' if request.endpoint == 'diet-plan' else '' }}">
+                    <a class="nav-link" href="{{ url_for('diet_plan') }}">Diet Plan</a>
+                </li>
+                {% if 'username' in session %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/my_schedule">My Schedule</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/give-feedback">Feedback</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/my_profile">My Profile</a>
+                </li>
+                {% endif %}
+                <li class="nav-item {{ 'active' if request.endpoint == 'home' else '' }}">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                {% if 'username' in session %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ session['username'] }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container mt-3">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Main content -->
+    {% block content %}
+    <div class="container mt-3">
+        <h1>Welcome to Our Gym!</h1>
+        <p>This is the place where your transformation begins.</p>
+    </div>
+    {% endblock %}
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

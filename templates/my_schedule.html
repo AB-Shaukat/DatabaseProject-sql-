@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div id="schedule-container" class="container mt-3">
+    <a href="{{ url_for('register_class') }}" class="btn btn-primary mb-3">Register for a New Class</a>
+    <h2>My Class Schedule</h2>
+    {% if schedule %}
+        <ul class="my-class-schedule">
+            {% for class in schedule %}
+                <li class="schedule-item">
+                    {{ class.TypeOfClass }} - {{ class.Day }} at {{ class.ClassTime }}
+                    <!-- Delete form updated to pass TypeOfClass -->
+                    <form action="{{ url_for('delete_class', type_of_class=class.TypeOfClass) }}" method="POST" style="display: inline;">
+                        <input type="hidden" name="type_of_class" value="{{ class.TypeOfClass }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have not registered for any classes yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+<script>
+    // JavaScript to add 'active' class to clicked list items
+    document.addEventListener('DOMContentLoaded', function() {
+        var scheduleItems = document.querySelectorAll('.schedule-item');
+    
+        scheduleItems.forEach(function(item) {
+            item.addEventListener('click', function() {
+                // Remove 'active' class from all items
+                scheduleItems.forEach(function(it) {
+                    it.classList.remove('active');
+                });
+                // Add 'active' class to the clicked item
+                item.classList.add('active');
+            });
+        });
+    });
+</script>

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="feedback-heading">Your Feedback</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Class Name</th>
+                <th>Feedback</th>
+                <th>Submitted On</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for feedback in feedback_list %}
+            <tr>
+                <td>{{ feedback.ClassName }}</td>
+                <td>{{ feedback.FeedbackText }}</td>
+                <td>{{ feedback.CreatedAt }}</td>
+                <td>
+                    <a href="{{ url_for('edit_feedback', feedback_id=feedback.FeedbackID) }}" class="btn btn-success btn-sm btn-edit">Edit</a>
+                    <form action="{{ url_for('delete_feedback', feedback_id=feedback.FeedbackID) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger btn-sm btn-delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

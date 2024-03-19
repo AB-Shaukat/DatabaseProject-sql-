@@ -1,0 +1,15 @@
+
+{% extends "index.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Diet Plans</h2>
+    <div class="list-group">
+        {% for plan in plans %}
+        <a href="#" class="list-group-item list-group-item-action">
+            <h5 class="mb-1">{{ plan.plan_name }}</h5>
+            <p class="mb-1">{{ plan.description }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
