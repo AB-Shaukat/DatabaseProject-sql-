@@ -9,8 +9,8 @@
     <p><span>Display Name:</span> {{ profile['DisplayName'] }}</p>
 </div>
 
-<!-- Buttons for My Schedule and Feedback -->
-<div class="container mt-3 text-center"> <!-- Added text-center class to center align -->
+
+<div class="container mt-3 text-center"> 
     <a href="{{ url_for('my_schedule') }}" class="btn btn-primary mr-2 my-schedule-btn">My Schedule</a>
     <a href="{{ url_for('view_feedback') }}" class="btn btn-primary feedback-btn">My Feedbacks</a>
 </div>

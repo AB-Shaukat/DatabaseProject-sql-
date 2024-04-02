@@ -1,2 +1,14 @@
 To install dependencies run 
         pip install -r requirements.txt
+
+OR
+
+Manually Import needed dependencies for the project 
+
+        import flask
+        from flask_assets import Environment
+        from flask_bcrypt import Bcrypt
+        from flask_sqlalchemy import SQLAlchemy
+        from flask_wtf import FlaskForm
+        import mysql.connector
+        from wtforms import Form
